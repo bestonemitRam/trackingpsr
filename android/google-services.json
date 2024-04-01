@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "847094902793",
+    "project_id": "bmitsapp-35b68",
+    "storage_bucket": "bmitsapp-35b68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847094902793:android:4b21a24482be1be6cf08d8",
+        "android_client_info": {
+          "package_name": "com.app.bmitserp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp2-MOicQ4ZH1_FErgUHdfW1tyrkTKoIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
