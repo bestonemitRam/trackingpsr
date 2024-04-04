@@ -37,8 +37,10 @@ class _PendingTaskScreenState extends State<PendingTaskScreen> {
     return Provider.of<InternetConnectionStatus>(context) ==
             InternetConnectionStatus.disconnected
         ? InternetNotAvailable()
-        : Consumer<MyTaskProvider>(builder: (context, provider, child) {
-            if (provider.taskListtData.isNotEmpty) {
+        : Consumer<MyTaskProvider>(builder: (context, provider, child)
+         {
+            if (provider.taskListtData.isNotEmpty) 
+            {
               return Scaffold(
                 backgroundColor: Colors.transparent,
                 body: SingleChildScrollView(
@@ -188,7 +190,8 @@ class _PendingTaskScreenState extends State<PendingTaskScreen> {
                                                                 minLines: 4,
                                                                 maxLines: 15,
                                                                 validator:
-                                                                    (value) {
+                                                                    (value)
+                                                                     {
                                                                   if (value
                                                                       .toString()
                                                                       .isEmpty) {

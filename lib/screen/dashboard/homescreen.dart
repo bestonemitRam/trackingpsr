@@ -11,7 +11,6 @@ import 'package:bmitserp/widget/homescreen/weeklyreportchart.dart';
 import 'package:bmitserp/widget/radialDecoration.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:provider/provider.dart';
 import 'package:bmitserp/widget/headerprofile.dart';
 
@@ -91,10 +90,9 @@ class HomeScreenState extends State<HomeScreen> {
   //   });
   // }
 
-  void didChangeDependencies()
-   {
+  void didChangeDependencies() {
     loadDashboard();
-   // locationStatus();
+    // locationStatus();
     super.didChangeDependencies();
   }
 
@@ -105,7 +103,8 @@ class HomeScreenState extends State<HomeScreen> {
       if (!mounted) {
         return;
       }
-      final location = Provider.of<DashboardProvider>(context, listen: false).locationStatus;
+      final location =
+          Provider.of<DashboardProvider>(context, listen: false).locationStatus;
       location.update('latitude', (value) => position.latitude);
       location.update('longitude', (value) => position.longitude);
     } catch (e) {
@@ -118,7 +117,8 @@ class HomeScreenState extends State<HomeScreen> {
     //var fcm = await FirebaseMessaging.instance.getToken();
     // print(fcm);
     try {
-      final dashboardProvider =  await Provider.of<DashboardProvider>(context, listen: false)
+      final dashboardProvider =
+          await Provider.of<DashboardProvider>(context, listen: false)
               .getDashboardData();
 
       return 'loaded';

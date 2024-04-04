@@ -86,6 +86,9 @@ class ListUi extends StatelessWidget {
                         ),
                   ),
                 ),
+                SizedBox(
+                  width: 5,
+                ),
                 Expanded(
                   child: Column(
                     textBaseline: TextBaseline.alphabetic,

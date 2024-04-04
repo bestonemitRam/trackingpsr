@@ -72,7 +72,8 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                       )),
                 ],
               ),
-              Obx(() => Form(
+              Obx(() =>
+              Form(
                     key: _form,
                     child: SingleChildScrollView(
                       child: Container(

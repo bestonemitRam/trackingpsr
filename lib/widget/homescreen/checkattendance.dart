@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:bmitserp/api/app_strings.dart';
 import 'package:bmitserp/main.dart';
 import 'package:bmitserp/provider/dashboardprovider.dart';
 import 'package:bmitserp/provider/prefprovider.dart';
 import 'package:bmitserp/utils/authservice.dart';
 import 'package:bmitserp/widget/attendance_bottom_sheet.dart';
+import 'package:bmitserp/widget/homescreen/CustomDigitalClock.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -19,8 +22,48 @@ class CheckAttendance extends StatefulWidget {
 }
 
 class CheckAttendanceState extends State<CheckAttendance> {
+  late Stopwatch stopwatch;
+  late Timer t;
+
+  void handleStartStop() {
+    if (stopwatch.isRunning) {
+      stopwatch.stop();
+    } else {
+      stopwatch.start();
+    }
+  }
+
+  String returnFormattedText() {
+    var milli = stopwatch.elapsed.inMilliseconds;
+
+    String milliseconds = (milli % 1000)
+        .toString()
+        .padLeft(3, "0"); // this one for the miliseconds
+    String seconds = ((milli ~/ 1000) % 60)
+        .toString()
+        .padLeft(2, "0"); // this is for the second
+
+    String minutes = ((milli ~/ 1000) ~/ 60)
+        .toString()
+        .padLeft(2, "0"); // this is for the minute
+    String hours = ((milli ~/ 1000) ~/ 3600).toString().padLeft(2, "0");
+
+    return "$hours:$minutes:$seconds";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    stopwatch = Stopwatch();
+
+    t = Timer.periodic(Duration(milliseconds: 100), (timer) {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    //handleStartStop();
     final attendanceList =
         Provider.of<DashboardProvider>(context).attendanceList;
     final pref = Provider.of<PrefProvider>(context);
@@ -70,8 +113,7 @@ class CheckAttendanceState extends State<CheckAttendance> {
 
                         print("lkfjgklfjhg  ${permission}");
 
-                        if (permission == LocationPermission.denied) 
-                        {
+                        if (permission == LocationPermission.denied) {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) =>
@@ -131,8 +173,7 @@ class CheckAttendanceState extends State<CheckAttendance> {
                                         onPressed: () async {
                                           Navigator.of(context).pop(false);
 
-                                          final data = await dbHelper
-                                              .fetchLocationData();
+                                          final data = await dbHelper.fetchLocationData();
                                           print('Location Data: $data');
 
                                           if (await pref.getUserAuth()) {
@@ -277,6 +318,7 @@ class CheckAttendanceState extends State<CheckAttendance> {
               percent: attendanceList['production-time']!,
               center: Text(
                 attendanceList['production_hour'],
+                // "${returnFormattedText()}",
                 style: TextStyle(color: Colors.white),
               ),
               barRadius: const Radius.circular(20),

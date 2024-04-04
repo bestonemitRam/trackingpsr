@@ -110,25 +110,55 @@ class _ProfileScreenActivityState extends State<ProfileScreenActivity> {
                         height: 2.h,
                       ),
                       Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                            Apphelper.USER_NAME ?? '',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: Text(
-                          Apphelper.USER_EMAIL ?? '',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        padding: EdgeInsets.only(left: 5.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Text(
+                                  Apphelper.USER_NAME ?? '',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0),
+                              child: Text(
+                                Apphelper.USER_EMAIL != "USER_EMAIL"
+                                    ? Apphelper.USER_EMAIL
+                                    : "" ?? '',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 2),
+                              child: Text(
+                                Apphelper.USER_CONTACT != "USER_CONTACT"
+                                    ? Apphelper.USER_CONTACT
+                                    : "" ?? '',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 2),
+                              child: Text(
+                                Apphelper.USER_ADDRESS != "USER_ADDRESS"
+                                    ? Apphelper.USER_ADDRESS
+                                    : "" ?? '',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                            )
+                          ],
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
               ),
-            ))
-
-     
-        );
+            )));
   }
 }

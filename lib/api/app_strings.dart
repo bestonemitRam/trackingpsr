@@ -18,5 +18,6 @@ class Apphelper {
   static String USER_EMP_CODE = "USER_EMP_CODE";
   static String USER_AUTH = "USER_AUTH";
   static String APP_IN_ENGLISH = "APP_IN_ENGLISH";
+  static String USER_ADDRESS = "USER_ADDRESS";
    static String CHECK_STATUS = "0";
 }

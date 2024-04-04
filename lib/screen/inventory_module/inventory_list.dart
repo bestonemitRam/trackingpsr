@@ -168,7 +168,7 @@ class _InventoryReportState extends State<InventoryReport> {
                                                       2.5,
                                                   child: Text(
                                                     // "${messageTime(item.orderDate)}",
-                                                    "lkfgdjh",
+                                                    "12-03-2023",
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1,

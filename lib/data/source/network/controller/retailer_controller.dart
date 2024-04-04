@@ -202,6 +202,7 @@ class RetailerController extends GetxController {
 
       request.headers.addAll(headers);
       if (imageFile.value != null) {
+        print("kjdfkjghjdf");
         final file = await http.MultipartFile.fromPath(
             'retailer_shop_image', imageFile.value!.path);
         request.files.add(file);
@@ -218,6 +219,8 @@ class RetailerController extends GetxController {
         final response = await http.Response.fromStream(streamedResponse);
         var out = jsonDecode(response.body);
 
+        print("kljdghjkj  ${out}  ${response.statusCode}");
+
         if (response.statusCode == 201) {
           EasyLoading.dismiss(animation: true);
           Fluttertoast.showToast(
@@ -232,7 +235,6 @@ class RetailerController extends GetxController {
           imageFile.value = null;
           lat.close();
           long.close();
-
           return true;
         } else {
           EasyLoading.dismiss(animation: true);
@@ -255,7 +257,7 @@ class RetailerController extends GetxController {
         print(e);
       }
 
-      return Future.error('error');
+      return true;
     } catch (error) {
       EasyLoading.dismiss(animation: true);
       throw error;
@@ -421,8 +423,7 @@ class RetailerController extends GetxController {
 
         try {
           final streamedResponse = await request.send();
-          final response = await http.Response.fromStream(streamedResponse)
-              .timeout(Duration(seconds: 60));
+          final response = await http.Response.fromStream(streamedResponse);
           print("kdjfhggf  ${response.statusCode}");
 
           var out = jsonDecode(response.body);

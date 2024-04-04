@@ -153,7 +153,8 @@ class IssueLeaveSheetState extends State<IssueLeaveSheet> {
                       value: selectedValue,
                       onChanged: (value) {
                         selectedValue = value as Leave?;
-                        if (selectedValue != null) {
+                        if (selectedValue != null) 
+                        {
                           setState(() {});
                         }
                       },

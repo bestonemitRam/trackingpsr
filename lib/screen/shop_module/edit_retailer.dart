@@ -313,13 +313,12 @@ class EditRetailerState extends State<EditRetailer> {
                                     padding: EdgeInsets.zero,
                                     shape: ButtonBorder(),
                                   ),
-                                  onPressed: () async 
-                                  {
+                                  onPressed: () async {
                                     bool status = await controller
                                         .editRetailer(widget.id.toString());
+                                    print("check datadd ${status}");
 
-                                    if (status) 
-                                    {
+                                    if (status) {
                                       print("check datadd ${status}");
                                       Provider.of<LeaveProvider>(context,
                                               listen: false)

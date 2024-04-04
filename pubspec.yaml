@@ -75,18 +75,11 @@ dependencies:
   overlay_loading_progress: ^1.0.0
   slide_digital_clock: 
   get: ^4.6.5
-  
-  
- 
-
- 
-
   flutter_typeahead: ^4.3.7
-  
-  
-  background_location: 
+
+  background_location: ^0.13.0
   expansion_tile_card: ^3.0.0
-  flutter_background_service: ^0.2.4
+  #flutter_background_service: ^0.2.4
   responsive_sizer: ^3.3.0+1 
   fluttertoast: ^8.2.1
   flutter_mentions: ^2.0.1
@@ -97,11 +90,15 @@ dependencies:
   google_maps_flutter: ^2.5.3
   geocoding: ^2.2.0
  
-  package_info_plus:
+  
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.1.0
   sqflite: ^2.3.2
   internet_connection_checker: ^1.0.0+1
+  workmanager: ^0.5.2
+  package_info_plus:
+  flutter_background_service: ^5.0.5
+  flutter_local_notifications:
  
   
 

@@ -39,9 +39,11 @@ class SecurityCheckState extends State<SecurityCheck> {
                   ),
                   trailing: Switch(
                     value: snapshot.data!,
-                    onChanged: (value) async {
-                      bool isAuthenticated =
-                          await AuthService.authenticateUser();
+                    onChanged: (value) async 
+                    {
+                      bool isAuthenticated =  await AuthService.authenticateUser();
+
+                      print("dklfghjh ${isAuthenticated}");
                       if (isAuthenticated) {
                         setState(() {
                           provider.saveAuth(value);

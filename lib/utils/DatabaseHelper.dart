@@ -8,12 +8,10 @@ class DatabaseHelper {
 
   DatabaseHelper._internal();
 
-   Database? _database;
+  Database? _database;
 
-  Future<Database> get database async 
-  {
-    if (_database != null) 
-    return _database!;
+  Future<Database> get database async {
+    if (_database != null) return _database!;
 
     _database = await initDatabase();
     return _database!;
@@ -27,21 +25,22 @@ class DatabaseHelper {
       path,
       version: 1,
       onCreate: (db, version) async {
-        await db.execute('CREATE TABLE IF NOT EXISTS location_data (id INTEGER PRIMARY KEY, latitude REAL, longitude REAL, timestamp INTEGER)');
+        await db.execute(
+            'CREATE TABLE IF NOT EXISTS location_data1 (id INTEGER PRIMARY KEY, latitude REAL, longitude REAL, timestamp INTEGER)');
       },
     );
   }
 
-  Future<void> insertLocationData(double latitude, double longitude, int timestamp) async 
-  {
+  Future<void> insertLocationData(
+      double latitude, double longitude, int timestamp) async {
     final db = await database;
-    await db.insert('location_data', {'latitude': latitude, 'longitude': longitude, 'timestamp': timestamp}, conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.insert('location_data1',
+        {'latitude': latitude, 'longitude': longitude, 'timestamp': timestamp},
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<Map<String, dynamic>>> fetchLocationData() 
-  async 
-  {
+  Future<List<Map<String, dynamic>>> fetchLocationData() async {
     final db = await database;
-    return await db.query('location_data');
+    return await db.query('location_data1');
   }
 }

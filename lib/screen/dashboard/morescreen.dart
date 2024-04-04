@@ -53,7 +53,7 @@ class MoreScreen extends StatelessWidget {
                         create: (BuildContext context) => ProfileUserProvider(),
                         child: ProfileScreenActivity())),
 
-                Services('Retailers', Icons.inventory, ShopListingScreen()),
+                Services('Retailers', Icons.shop, ShopListingScreen()),
 
                 Services('My Inventory', Icons.inventory, InventoryReport()),
 
@@ -64,14 +64,15 @@ class MoreScreen extends StatelessWidget {
                 //         create: (BuildContext context) => LeaveProvider(),
                 //         child: ShopListingScreen())),
 
-                Services(
-                    'Map Area',
-                    Icons.shop,
-                    ChangeNotifierProvider<LeaveProvider>(
-                        create: (BuildContext context) => LeaveProvider(),
-                        child: GoogleMapScreen())),
+                // Services(
+                //     'Map Area',
+                //     Icons.shop,
+                //     ChangeNotifierProvider<LeaveProvider>(
+                //         create: (BuildContext context) => LeaveProvider(),
+                //         child: GoogleMapScreen())),
 
-                Services('Distributors', Icons.inventory, DistributorScreen()),
+                Services('Distributors', Icons.directions_boat_filled_rounded,
+                    DistributorScreen()),
 
                 // Services(
                 //     'Create Order',
@@ -104,7 +105,9 @@ class MoreScreen extends StatelessWidget {
 
                 Services(
                     'Privacy Policy', Icons.policy, ChangePasswordScreen()),
-                SecurityCheck('Security Check', Icons.security, ''),
+
+                // SecurityCheck('Security Check', Icons.security, ''),
+
                 Services('Log Out', Icons.logout, ChangePasswordScreen()),
               ],
             ),

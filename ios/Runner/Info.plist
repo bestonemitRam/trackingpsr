@@ -5,11 +5,13 @@
 <key>NSCalendarsUsageDescription</key>
 <string>Your explanation for why the app needs access to calendars</string>
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs access to location in the background.</string>
+
+<string>Our app will only access your device\'s location in the background when you initiate a check-in or check-out time only. When the  Employee check-out from the application, then location access of the device will be stop. Your location data will not be shared with third parties.</string>
 <key>NSLocationAlwaysUsageDescription</key>
-<string>This app needs access to location when in the background.</string>
+
+<string> This background location access is solely for the purpose of providing accurate check-in and check-out data and ensuring the efficiency of our servic. Your location data will be used only for purposes directly related to improving your experience with our app and will not be shared with third parties without your consent.</string>
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>This app needs access to location when open and in the background.</string>
+<string> This background location access is solely for the purpose of providing accurate check-in and check-out data and ensuring the efficiency of our servic. Your location data will be used only for purposes directly related to improving your experience with our app and will not be shared with third parties without your consent.</string>
 
 <key>NSPhotoLibraryUsageDescription</key>
 <string>App needs access to photo lib for profile images</string>
@@ -22,7 +24,6 @@
 <key>NSCameraUsageDescription</key>
 <string>BMITS app needs access to the camera for capture image</string>
 
-  
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -61,7 +62,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>BMITS ERP would like to access Face ID to check in and out using your Face ID.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>BMITS ERP would like to access your location validate check in and checkout feature.</string>
+	<string>BMITS ERP App would like to access your location validate in between check in and check-out only. If the employee checkout form the app then location access is stop.</string>
 		<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 <dict>
   <key>YourPurposeKey</key>

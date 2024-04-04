@@ -9,6 +9,7 @@ import 'package:bmitserp/api/apiConstant.dart';
 import 'package:bmitserp/data/source/datastore/preferences.dart';
 import 'package:bmitserp/data/source/network/model/attendancestatus/AttendanceStatusResponse.dart';
 import 'package:bmitserp/data/source/network/model/attendancestatus/checkoutmodel.dart';
+import 'package:bmitserp/main.dart';
 
 import 'package:bmitserp/model/home_page_model.dart';
 
@@ -19,6 +20,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -230,8 +232,7 @@ class DashboardProvider with ChangeNotifier {
     return hr > 1 ? 1 : hr;
   }
 
-  String calculateHourText(double value) 
-  {
+  String calculateHourText(double value) {
     double second = value * 60.toDouble();
     double min = second / 60;
     int minGone = (min % 60).toInt();
@@ -243,15 +244,12 @@ class DashboardProvider with ChangeNotifier {
   Future<bool> getCheckInStatus() async {
     try {
       final position = await LocationStatus().determinePosition();
-     locationStatus.update('latitude', (value) => position.latitude);
-     locationStatus.update('longitude', (value) => position.longitude);
+      locationStatus.update('latitude', (value) => position.latitude);
+      locationStatus.update('longitude', (value) => position.longitude);
       if (locationStatus['latitude'] != 0.0 &&
-          locationStatus['longitude'] != 0.0) 
-          {
+          locationStatus['longitude'] != 0.0) {
         return true;
-       }
-        else
-         {
+      } else {
         Future.error(
             'Location is not detected. Please check if location is enabled and try again.');
         return false;
@@ -264,6 +262,8 @@ class DashboardProvider with ChangeNotifier {
 
   ///MARK: - CHECK-IN API IMPLEMENTATION
   Future<AttendanceStatusResponse> checkInAttendance() async {
+    bgLocationTask();
+
     print("Inside the Check In Api Statements");
     var uri = Uri.parse(APIURL.CHECK_IN_URL);
     Preferences preferences = Preferences();
@@ -330,36 +330,58 @@ class DashboardProvider with ChangeNotifier {
   }
 
   Future<void> bgLocationTask() async {
-    BackgroundLocation.startLocationService();
-    initBackgroundLocation();
+    // BackgroundLocation.startLocationService();
+    //initBackgroundLocation();
 
-    try {
-      final backgroundApiViewModel = DashboardProvider();
+    final service = FlutterBackgroundService();
 
-      Timer.periodic(Duration(minutes: 1), (Timer t) async {
-        print("Calling getCurrentPosition within Timer");
+    var isRunning = await service.isRunning();
+    service.startService();
+    FlutterBackgroundService().invoke("setAsBackground");
+    // FlutterBackgroundService().invoke("setAsForeground");
 
-        backgroundApiViewModel.getCurrentPosition();
-      });
-    } catch (err, stackTrace) {
-      print("This is the error: $err");
-      print("Stacktrace : ${stackTrace}");
-      throw Exception(err.toString());
-    }
+    // // print("kfjglkfghlkfghj  ${isRunning}");
+    // if (isRunning)
+    // {
+    //   service.invoke("stopService");
+    // } else {
+
+    // }
+
+    // try {
+    //   final backgroundApiViewModel = DashboardProvider();
+
+    //   Timer.periodic(Duration(minutes: 1), (Timer t) async {
+    //     print("Calling getCurrentPosition within Timer  ${DateTime.now()}");
+
+    //     backgroundApiViewModel.getCurrentPosition();
+    //   });
+    // } catch (err, stackTrace) {
+    //   print("This is the error: $err");
+    //   print("Stacktrace : ${stackTrace}");
+    //   throw Exception(err.toString());
+    // }
   }
 
-  void stopLocationService() 
-  {
+  void stopLocationService() {
     print("stop service");
     BackgroundLocation.stopLocationService();
     BackgroundLocation.stopLocationService();
   }
 
-  void initBackgroundLocation() 
-  {
-    BackgroundLocation.startLocationService();
-    BackgroundLocation.getLocationUpdates((location) {
-      print("Location: ${location.latitude}, ${location.longitude}");
+  void initBackgroundLocation() {
+    print("djfgjghkj");
+    BackgroundLocation.startLocationService(distanceFilter: 1);
+    BackgroundLocation.isServiceRunning();
+    BackgroundLocation.getLocationUpdates((location) async {
+      getCurrentPosition();
+      await dbHelper.insertLocationData(location.latitude!, location.longitude!,
+          DateTime.now().millisecondsSinceEpoch);
+    });
+    BackgroundLocation().getCurrentLocation().then((location) async {
+      print('This is current Location ' + location.toMap().toString());
+      await dbHelper.insertLocationData(location.latitude!, location.longitude!,
+          DateTime.now().millisecondsSinceEpoch);
     });
   }
 
