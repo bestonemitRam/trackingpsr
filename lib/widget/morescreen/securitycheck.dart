@@ -43,7 +43,7 @@ class SecurityCheckState extends State<SecurityCheck> {
                     {
                       bool isAuthenticated =  await AuthService.authenticateUser();
 
-                      print("dklfghjh ${isAuthenticated}");
+                    
                       if (isAuthenticated) {
                         setState(() {
                           provider.saveAuth(value);

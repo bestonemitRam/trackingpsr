@@ -58,7 +58,7 @@ class AttendanceReportProvider with ChangeNotifier {
 
     try {
       final responseJson = await repository.getAttendanceReport(selectedMonth);
-      print("jdfgkjgf ${responseJson.status}");
+    
 
       if (responseJson.status == true) {
         makeAttendanceReport(responseJson.result!.attendanceList!);
@@ -84,7 +84,7 @@ class AttendanceReportProvider with ChangeNotifier {
   void makeAttendanceReport(List<AttendanceList> employeeAttendance) {
     _attendanceReport.clear();
     for (var item in employeeAttendance) {
-      print("fkjghkfhg   ${item.totalWorkingHours}");
+  
 
       _attendanceReport.add(EmployeeAttendanceReport(
           id: item.id!,

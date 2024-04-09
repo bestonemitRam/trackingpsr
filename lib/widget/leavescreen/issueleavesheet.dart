@@ -244,12 +244,10 @@ class IssueLeaveSheetState extends State<IssueLeaveSheet> {
                       lastDate: DateTime(2100));
 
                   if (pickedDate != null) {
-                    print(
-                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                  //pickedDate output format => 2021-03-10 00:00:00.000
                     String formattedDate =
                         DateFormat('yyyy-MM-dd hh:mm:ss').format(pickedDate);
-                    print(
-                        formattedDate); //formatted date output using intl package =>  2021-03-16
+                     //formatted date output using intl package =>  2021-03-16
                     setState(() {
                       startDate.text =
                           formattedDate; //set output date to TextField value.
@@ -306,12 +304,10 @@ class IssueLeaveSheetState extends State<IssueLeaveSheet> {
                       lastDate: DateTime(2100));
 
                   if (pickedDate != null) {
-                    print(
-                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                     //pickedDate output format => 2021-03-10 00:00:00.000
                     String formattedDate =
                         DateFormat('yyyy-MM-dd hh:mm:ss').format(pickedDate);
-                    print(
-                        formattedDate); //formatted date output using intl package =>  2021-03-16
+                    //formatted date output using intl package =>  2021-03-16
                     setState(() {
                       endDate.text =
                           formattedDate; //set output date to TextField value.

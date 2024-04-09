@@ -316,16 +316,16 @@ class EditRetailerState extends State<EditRetailer> {
                                   onPressed: () async {
                                     bool status = await controller
                                         .editRetailer(widget.id.toString());
-                                    print("check datadd ${status}");
+                                 
 
                                     if (status) {
-                                      print("check datadd ${status}");
+                                    
                                       Provider.of<LeaveProvider>(context,
                                               listen: false)
                                           .getShopList();
                                       Get.back();
                                     }
-                                    // print("ljkfgkjfkgh");
+                                 
                                     // if (_form.currentState!.validate())
                                     //  {
                                     //   if (controller.imageFile == null) {

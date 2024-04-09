@@ -14,7 +14,7 @@ class TadaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Get.put(TadaListController());
 
-    print('dfkghdfkjhg  ${model.tadaList.isNotEmpty}');
+  
 
     return Container(
       decoration: RadialDecoration(),

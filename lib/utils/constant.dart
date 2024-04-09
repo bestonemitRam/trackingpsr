@@ -110,8 +110,8 @@ Future<dynamic> checkInApi({
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
-    print(await response.stream.bytesToString());
+   
   } else {
-    print(response.reasonPhrase);
+  
   }
 }

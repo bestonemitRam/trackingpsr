@@ -15,7 +15,7 @@ class TadaDetailController extends GetxController {
       EasyLoading.show(
           status: 'Loading, Please Wait...',
           maskType: EasyLoadingMaskType.black);
-      print("hgkjfjkg  ${Get.arguments["tadaId"].toString()}");
+    
 
       final response =
           await repository.getTadaDetail(Get.arguments["tadaId"].toString());
@@ -28,7 +28,7 @@ class TadaDetailController extends GetxController {
       int count = 0;
       if (data != null && data.attachments != null)
         for (var attachment in data!.attachments!) {
-          print('dfgkjdfhgj  ${attachment.pathLink!}');
+         
           attachmentList.add(Attachment(count, attachment.pathLink!, "image"));
           count = count + 1;
         }
@@ -51,7 +51,7 @@ class TadaDetailController extends GetxController {
       isLoading.value = false;
       return "Loaded";
     } catch (e) {
-      print(e);
+     
       throw e;
     }
   }

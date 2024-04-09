@@ -89,7 +89,7 @@ class RetailerController extends GetxController {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
           position.latitude ?? 0.0, position.longitude ?? 0.0);
-      print("kfdjghkghhjkg  ${position.latitude} ${position.longitude}");
+     
       Placemark place = placemarks[0];
       return "${place.street}, ${place.subThoroughfare} ${place.thoroughfare}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country},  ${place.isoCountryCode} ,${place.name}, ${place.subAdministrativeArea} , ${place.thoroughfare}";
     } catch (e) {
@@ -167,7 +167,7 @@ class RetailerController extends GetxController {
           //     gravity: ToastGravity.CENTER,
           //     timeInSecForIosWeb: 1,
           //     fontSize: 16.0);
-          print(e);
+        
         }
 
         return Future.error('error');
@@ -181,7 +181,7 @@ class RetailerController extends GetxController {
   }
 
   Future<bool> editRetailer(String id) async {
-    print("lkfjgkhfkjgh${id}");
+  
     var uri = Uri.parse(APIURL.RETAILER_UPDATE + "${id}");
 
     Preferences preferences = Preferences();
@@ -202,7 +202,7 @@ class RetailerController extends GetxController {
 
       request.headers.addAll(headers);
       if (imageFile.value != null) {
-        print("kjdfkjghjdf");
+    
         final file = await http.MultipartFile.fromPath(
             'retailer_shop_image', imageFile.value!.path);
         request.files.add(file);
@@ -219,7 +219,7 @@ class RetailerController extends GetxController {
         final response = await http.Response.fromStream(streamedResponse);
         var out = jsonDecode(response.body);
 
-        print("kljdghjkj  ${out}  ${response.statusCode}");
+      
 
         if (response.statusCode == 201) {
           EasyLoading.dismiss(animation: true);
@@ -254,7 +254,7 @@ class RetailerController extends GetxController {
         //     gravity: ToastGravity.CENTER,
         //     timeInSecForIosWeb: 1,
         //     fontSize: 16.0);
-        print(e);
+       
       }
 
       return true;
@@ -291,7 +291,7 @@ class RetailerController extends GetxController {
 
   Rx<File?> cancelCheque = Rx<File?>(null);
   Future<void> cancelchequeDisImage() async {
-    print("ffgkjhkjfgh  ${cancelCheque.value}");
+   
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
@@ -371,28 +371,28 @@ class RetailerController extends GetxController {
           request.files.add(file);
         }
         if (cancelCheque.value != null) {
-          print("check cancel");
+         
           request.headers.addAll(headers);
           final file = await http.MultipartFile.fromPath(
               'cancel_cheque_image', cancelCheque.value!.path);
           request.files.add(file);
         }
         if (pancardImage.value != null) {
-          print("check pancardImage");
+       
           request.headers.addAll(headers);
           final file = await http.MultipartFile.fromPath(
               'pancard_image', pancardImage.value!.path);
           request.files.add(file);
         }
         if (aadhImagefront.value != null) {
-          print("check aadhImagefront");
+        
           request.headers.addAll(headers);
           final file = await http.MultipartFile.fromPath(
               'aadharcard_image_front', aadhImagefront.value!.path);
           request.files.add(file);
         }
         if (aadhImagefback.value != null) {
-          print("check aadhImagefback");
+       
           request.headers.addAll(headers);
           final file = await http.MultipartFile.fromPath(
               'aadharcard_image_back', aadhImagefback.value!.path);
@@ -424,7 +424,7 @@ class RetailerController extends GetxController {
         try {
           final streamedResponse = await request.send();
           final response = await http.Response.fromStream(streamedResponse);
-          print("kdjfhggf  ${response.statusCode}");
+          
 
           var out = jsonDecode(response.body);
 
@@ -514,7 +514,7 @@ class RetailerController extends GetxController {
             request.files.add(file);
           }
           if (cancelCheque.value != null) {
-            print("check cancel");
+            
 
             final file = await http.MultipartFile.fromPath(
                 'cancel_cheque_image', cancelCheque.value!.path);
@@ -538,7 +538,7 @@ class RetailerController extends GetxController {
 
           if (fileList.isNotEmpty) {
             for (var filed in fileList) {
-              print(filed.path!);
+            
               final file = File(filed.path!);
               final stream = http.ByteStream(Stream.castFrom(file.openRead()));
               final length = await file.length();
@@ -566,7 +566,7 @@ class RetailerController extends GetxController {
             final response = await http.Response.fromStream(streamedResponse);
             var out = jsonDecode(response.body);
 
-            print("djghjgh  ${response.statusCode}");
+          
 
             if (response.statusCode == 201) {
               Fluttertoast.showToast(
@@ -645,9 +645,9 @@ class RetailerController extends GetxController {
       try {
         shopItems.clear();
         for (var data in shops) {
-          print("dfgj  ${data.quantity}");
+        
           if (data.quantity != 0 && data.quantity != null) {
-            print("dsddfgfgj");
+      
             shopItems.add(DataModel(
                 inventory_id: data.inventoryId.toString(),
                 total_orders: data.quantity.toString()));
@@ -664,7 +664,7 @@ class RetailerController extends GetxController {
           "retailer_id": retailer_id.value,
           "advanceOrderData": shopItems.value
         });
-        print("lkdjfkg ${body}");
+      
         var response = await http
             .post(uri, headers: headers, body: body)
             .timeout(Duration(seconds: 40));
@@ -733,11 +733,11 @@ class RetailerController extends GetxController {
         var body = jsonEncode(
             {"orderID": orderId, "advanceOrderData": shopItems.value});
 
-        print("kgsdjf ${body}");
+      
         var response = await http
             .post(uri, headers: headers, body: body)
             .timeout(Duration(seconds: 40));
-        print(response.statusCode);
+    
 
         if (response.statusCode == 200) {
           EasyLoading.dismiss(animation: true);
@@ -779,13 +779,13 @@ class RetailerController extends GetxController {
   }
 
   Future<bool> deleteProduct(int id) async {
-    print("check get all shop list data ");
+  
     var uri = Uri.parse(APIURL.ORDER_DELETE + "${id}");
 
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response >> ');
+   
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -802,7 +802,7 @@ class RetailerController extends GetxController {
             .timeout(Duration(seconds: 30));
         final responseData = json.decode(response.body);
 
-        print("Check leave data ${responseData}");
+     
         final responseJson = ProdectModel.fromJson(responseData);
 
         if (response.statusCode == 200) {
@@ -846,7 +846,7 @@ class RetailerController extends GetxController {
       }),
     );
 
-    print("lkdjhgf ${response.body}");
+  
 
     if (response.statusCode == 200) {
       // Message sent successfully
@@ -871,7 +871,7 @@ class RetailerController extends GetxController {
       try {
         shopItems.clear();
         for (var data in shops) {
-          print("dfgj  ${data.quantity}");
+        
           if (data.quantity != 0 && data.quantity != null) {
             shopItems.add(DataModel(
                 inventory_id: data.inventoryId.toString(),
@@ -897,11 +897,11 @@ class RetailerController extends GetxController {
           "advance_order_list": selectedAdvanceOrder.value,
           "orderData": shopItems.value
         });
-        print("lkdjfkg ${body}");
+       
         var response = await http
             .post(uri, headers: headers, body: body)
             .timeout(Duration(seconds: 40));
-        print("fgkjhfgjklh ${response.body}  ${response.statusCode}}");
+       
 
         if (response.statusCode == 200) {
           EasyLoading.dismiss(animation: true);

@@ -44,7 +44,7 @@ class TaskListController extends GetxController {
         uri,
         headers: headers,
       );
-      debugPrint(response.body.toString());
+     
       EasyLoading.dismiss(animation: true);
 
       final responseData = json.decode(response.body);
@@ -62,11 +62,11 @@ class TaskListController extends GetxController {
         return "loaded";
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+      
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+    
       throw e;
     }
   }

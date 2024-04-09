@@ -11,7 +11,7 @@ class ToggleLeaveTime extends StatelessWidget {
 
     void onToggleChanged() async {
       final detailResponse = await provider.getLeaveTypeDetail();
-      print("checkData   ${detailResponse} ");
+     
 
       if (!mounted) return;
       // if (detailResponse.statusCode == 200)

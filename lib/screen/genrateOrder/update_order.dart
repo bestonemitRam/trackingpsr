@@ -87,7 +87,7 @@ class _MyWidgetState extends State<UpdateOrder> {
     final leaveData = Provider.of<ProductProvider>(context, listen: true);
     final shops = leaveData.productlist;
     if (isdata) {
-      print("dkjgkfghkjfghfkjghkjl");
+   
       for (var item in shops) {
         TextEditingController controller = TextEditingController();
         for (var data in widget.item!.orderDetails!) {

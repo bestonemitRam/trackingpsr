@@ -47,7 +47,7 @@ class LeaveProvider with ChangeNotifier {
      
         final responseJson = RetailerModel.fromJson(responseData);
         if (response.statusCode == 200) {
-          debugPrint(responseData.toString());
+      
 
           makeShopList(responseJson.result!);
           EasyLoading.dismiss(animation: true);
@@ -74,7 +74,7 @@ class LeaveProvider with ChangeNotifier {
    {
     _shoplist.clear();
 
-    print("dfgjkfgh    ${data.retailersList}");
+   
 
     for (var shop in data.retailersList!.reversed) {
       _shoplist.add(Shop(
@@ -107,7 +107,7 @@ class LeaveProvider with ChangeNotifier {
   }
 
   void makeDistributorList(DistributorData data) {
-    print("kfjhgjkfjkhgkjfghgkfh ");
+   
     _distributor.clear();
 
     for (var distributor in data.distributorList!.reversed!) 
@@ -145,13 +145,13 @@ class LeaveProvider with ChangeNotifier {
   }
 
   Future<DistributorModel> getDistributorList() async {
-    print("check get all shop list data ");
+   
     var uri = Uri.parse(APIURL.DISTRIBUTOR_LIST);
 
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response >> ');
+    
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -163,7 +163,7 @@ class LeaveProvider with ChangeNotifier {
 
       final responseJson = DistributorModel.fromJson(responseData);
       if (response.statusCode == 200) {
-        debugPrint(responseData.toString());
+        
 
         makeDistributorList(responseJson.result!);
 
@@ -183,7 +183,7 @@ class LeaveProvider with ChangeNotifier {
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response >> ');
+
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -193,10 +193,10 @@ class LeaveProvider with ChangeNotifier {
       final response = await http.get(uri, headers: headers);
       final responseData = json.decode(response.body);
 
-      print("Checkdfdg leave data ${responseData}");
+   
       final responseJson = HomePageModel.fromJson(responseData);
       if (response.statusCode == 200) {
-        debugPrint(responseData.toString());
+       
 
         stateList(responseJson.result!);
         EasyLoading.dismiss(animation: true);

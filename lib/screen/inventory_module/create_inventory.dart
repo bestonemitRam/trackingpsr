@@ -177,7 +177,7 @@ class _MyWidgetState extends State<CreateInventory> {
                                             _textEditingController[index],
                                         cursorHeight: 18,
                                         onChanged: (newValue) {
-                                          print(item.availableQuantity);
+                                         
                                           if (int.tryParse(newValue) != null &&
                                               int.parse(newValue) >
                                                   int.parse(
@@ -405,9 +405,9 @@ class _MyWidgetState extends State<CreateInventory> {
 
   static String messageTime(String time) {
     DateTime dt = DateTime.parse(time);
-    print("converted gmt date >> " + dt.toString());
+   
     final localTime = dt.toLocal();
-    print("local modified date >> " + localTime.toString());
+   
 
     var inputDate = DateTime.parse(localTime.toString());
     var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');

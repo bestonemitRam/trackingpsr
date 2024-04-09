@@ -43,7 +43,7 @@ class TaskDetailController extends GetxController {
         headers: headers,
       );
       EasyLoading.dismiss(animation: true);
-      debugPrint(response.body.toString());
+    
 
       final responseData = json.decode(response.body);
 
@@ -93,11 +93,11 @@ class TaskDetailController extends GetxController {
         return taskResponse;
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+       
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+     
       throw e;
     }
   }
@@ -114,7 +114,7 @@ class TaskDetailController extends GetxController {
       'Authorization': 'Bearer $token'
     };
 
-    debugPrint(uri.toString());
+   
     try {
       EasyLoading.show(status: "Loading", maskType: EasyLoadingMaskType.black);
       final response = await http.get(
@@ -122,7 +122,7 @@ class TaskDetailController extends GetxController {
         headers: headers,
       );
       EasyLoading.dismiss(animation: true);
-      debugPrint(response.body.toString());
+     
 
       final responseData = json.decode(response.body);
 
@@ -133,11 +133,11 @@ class TaskDetailController extends GetxController {
         return true;
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+      
         return false;
       }
     } catch (e) {
-      print(e);
+    
       return false;
     }
   }
@@ -153,7 +153,7 @@ class TaskDetailController extends GetxController {
       'Authorization': 'Bearer $token'
     };
 
-    debugPrint(uri.toString());
+    
     try {
       EasyLoading.show(status: "Loading", maskType: EasyLoadingMaskType.black);
       final response = await http.get(
@@ -161,7 +161,7 @@ class TaskDetailController extends GetxController {
         headers: headers,
       );
       EasyLoading.dismiss(animation: true);
-      debugPrint(response.body.toString());
+     
 
       final responseData = json.decode(response.body);
 
@@ -171,11 +171,11 @@ class TaskDetailController extends GetxController {
         return true;
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+      
         return false;
       }
     } catch (e) {
-      print(e);
+   
       return false;
     }
   }

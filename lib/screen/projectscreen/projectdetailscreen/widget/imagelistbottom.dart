@@ -31,7 +31,7 @@ class ItemListBottom extends StatelessWidget {
                 final imageProvider = Image.network(attachment.url).image;
                 showImageViewer(context, imageProvider, swipeDismissible: true,
                     onViewerDismissed: () {
-                  print("dismissed");
+             
                 });
               },
               child: Stack(children: [

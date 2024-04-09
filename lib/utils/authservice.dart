@@ -19,7 +19,7 @@ class AuthService {
         isAuthenticated = await _localAuthentication.authenticate(
             localizedReason: 'Scan your fingerprint to authenticate');
       } on PlatformException catch (e) {
-        print(e);
+       
        }
      }
      return isAuthenticated;

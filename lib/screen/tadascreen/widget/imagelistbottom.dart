@@ -33,7 +33,7 @@ class ItemListBottom extends StatelessWidget {
                 final imageProvider = Image.network(item.url).image;
                 showImageViewer(context, imageProvider, swipeDismissible: true,
                     onViewerDismissed: () {
-                  print("dismissed");
+                
                 });
               },
               child: Stack(children: [
@@ -54,7 +54,7 @@ class ItemListBottom extends StatelessWidget {
                                 .millisecondsSinceEpoch
                                 .toString(),
                             onProgress: (fileName, progress) {
-                              print(progress);
+                             
                               InAppNotification.show(
                                 child: Card(
                                   margin: const EdgeInsets.all(15),
@@ -109,7 +109,7 @@ class ItemListBottom extends StatelessWidget {
                               );
                             },
                             onDownloadError: (String error) {
-                              print('DOWNLOAD ERROR: $error');
+                     
                               InAppNotification.show(
                                 child: Card(
                                   margin: const EdgeInsets.all(15),

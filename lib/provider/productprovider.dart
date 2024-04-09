@@ -31,13 +31,13 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ProductProvider with ChangeNotifier {
   Future<ProdectModel> getProductList() async {
-    print("check get all shop list data ");
+   
     var uri = Uri.parse(APIURL.PRODUCT_LIST);
 
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response >> ');
+   
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -57,7 +57,7 @@ class ProductProvider with ChangeNotifier {
         final responseJson = ProdectModel.fromJson(responseData);
 
         if (response.statusCode == 200) {
-          debugPrint(responseData.toString());
+        
 
           String datas = jsonEncode(ProdectModel.fromJson(responseData));
           sharedPref.setString('productList', datas);
@@ -113,7 +113,7 @@ class ProductProvider with ChangeNotifier {
 
   void makeProduct(ProdectModel data) {
     _productlist.clear();
-    print("kjdfgkj  ${data.result}");
+   
 
     for (var shop in data.result!) {
       _productlist.add(shop);
@@ -130,7 +130,7 @@ class ProductProvider with ChangeNotifier {
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response >> ');
+
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -145,10 +145,10 @@ class ProductProvider with ChangeNotifier {
         final response = await http.get(uri, headers: headers);
         final responseData = json.decode(response.body);
 
-        print("Check leave data ${responseData}");
+       
         final responseJson = OrderListModel.fromJson(responseData);
         if (response.statusCode == 200) {
-          debugPrint(responseData.toString());
+         
 
           makeOderList(responseJson.result);
           EasyLoading.dismiss(animation: true);
@@ -218,10 +218,10 @@ class ProductProvider with ChangeNotifier {
 
         final responseJson = AdvanceOrder.fromJson(responseData);
 
-        print("fjkdhgkjfdgfgkj ${responseJson}");
+       
 
         if (response.statusCode == 200) {
-          debugPrint(responseData.toString());
+       
 
           String datas = jsonEncode(AdvanceOrder.fromJson(responseData));
           sharedPref.setString('productList', datas);

@@ -21,8 +21,7 @@ class AboutRepository {
     try {
       final response = await Connect()
           .getResponse("${Constant.CONTENT_URL}/$value/", headers);
-      debugPrint(response.body.toString());
-
+      
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200) {

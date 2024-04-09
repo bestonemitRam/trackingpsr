@@ -21,7 +21,7 @@ class InventoryProvider with ChangeNotifier {
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response >> ');
+   
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -37,7 +37,7 @@ class InventoryProvider with ChangeNotifier {
         final responseData = json.decode(response.body);
 
         final responseJson = AdvanceAndNormalOrder.fromJson(responseData);
-        print("Check leave ddfdfgata  ${response.statusCode}");
+       
 
         if (response.statusCode == 200) {
           makeNormalOrder(responseJson.result!);
@@ -69,7 +69,7 @@ class InventoryProvider with ChangeNotifier {
   void makeNormalOrder(AdvanceOrderData data) {
     _normalOrderlist.clear();
 
-    print("jkfghjkkjfgj ${data.normalInventory!.length}");
+  
 
     for (var normalOrder in data.normalInventory!.reversed) {
       _normalOrderlist.add(normalOrder!);

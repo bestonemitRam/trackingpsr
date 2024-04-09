@@ -764,9 +764,9 @@ class CreateShopScreenState extends State<CreateDistributor> {
                                       } else {
                                         bool status = await controller
                                             .createrDistributor();
-                                        print("jksdghfjh ${status}");
+                                       
                                         if (status) {
-                                          print("dsdsd ${status}");
+                                      
                                           Provider.of<LeaveProvider>(context,
                                                   listen: false)
                                               .getDistributorList();

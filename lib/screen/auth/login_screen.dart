@@ -70,7 +70,7 @@ class loginScreenState extends State<LoginScreen> {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(DashboardScreen.routeName, (route) => false);
     } catch (error) {
-      print(error);
+    
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(error.toString())));
     }
@@ -289,7 +289,7 @@ class loginScreenState extends State<LoginScreen> {
 
   ///MARK: - Login Button customization Design with Widget button()
   Widget button() {
-    // print("inside the login Click");
+
     return Container(
       width: MediaQuery.of(context).size.width,
       child: TextButton(

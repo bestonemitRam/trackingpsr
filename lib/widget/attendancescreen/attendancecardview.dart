@@ -11,11 +11,11 @@ class AttendanceCardView extends StatelessWidget {
 
   AttendanceCardView(this.index, this.date, this.day, this.start, this.end);
   static String dateTime(String time) {
-    print("fdgdhfgi ${time}");
+   
     DateTime dt = DateTime.parse(time);
-    print("converted gmt date >> " + dt.toString());
+   
     final localTime = dt.toLocal();
-    print("local modified date >> " + localTime.toString());
+   
 
     var inputDate = DateTime.parse(localTime.toString());
     var outputFormat = DateFormat('MM-dd-yyyy hh:mm a').format(inputDate);

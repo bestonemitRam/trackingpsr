@@ -4,7 +4,7 @@ import 'dart:core';
 import 'dart:math';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:background_location/background_location.dart';
+
 import 'package:bmitserp/api/apiConstant.dart';
 import 'package:bmitserp/data/source/datastore/preferences.dart';
 import 'package:bmitserp/data/source/network/model/attendancestatus/AttendanceStatusResponse.dart';
@@ -12,6 +12,7 @@ import 'package:bmitserp/data/source/network/model/attendancestatus/checkoutmode
 import 'package:bmitserp/main.dart';
 
 import 'package:bmitserp/model/home_page_model.dart';
+import 'package:bmitserp/service/LocationService.dart';
 
 import 'package:bmitserp/utils/constant.dart';
 import 'package:bmitserp/utils/locationstatus.dart';
@@ -20,7 +21,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -90,8 +91,6 @@ class DashboardProvider with ChangeNotifier {
 
     var fcm = await FirebaseMessaging.instance.getToken();
 
-    print('FirebaseFCMToken    ${fcm}');
-
     int getUserID = await preferences.getUserId();
 
     Map<String, String> headers = {
@@ -102,15 +101,11 @@ class DashboardProvider with ChangeNotifier {
 
     try {
       final response = await http.get(uri, headers: headers);
-      debugPrint(response.body.toString());
 
       final responseData = json.decode(response.body);
 
-      print("fdjgkjfgk  ${response.statusCode}  ${responseData}");
-
       if (response.statusCode == 200) {
         final dashboardResponse = HomeScreenModel.fromJson(responseData);
-        debugPrint(dashboardResponse.toString());
 
         updateOverView(dashboardResponse.data!);
         //print("ldkfjghfg ${dashboardResponse.data!.punchData!}");
@@ -237,7 +232,7 @@ class DashboardProvider with ChangeNotifier {
     double min = second / 60;
     int minGone = (min % 60).toInt();
     int hour = min ~/ 60;
-    print("$hour hr $minGone min");
+
     return "$hour hr $minGone min";
   }
 
@@ -255,16 +250,13 @@ class DashboardProvider with ChangeNotifier {
         return false;
       }
     } catch (e) {
-      print("dkjfgkjjkfgg ${e}");
       rethrow;
     }
   }
 
   ///MARK: - CHECK-IN API IMPLEMENTATION
-  Future<AttendanceStatusResponse> checkInAttendance() async {
-    bgLocationTask();
-
-    print("Inside the Check In Api Statements");
+  Future<AttendanceStatusResponse> checkInAttendance() async 
+  {
     var uri = Uri.parse(APIURL.CHECK_IN_URL);
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
@@ -278,24 +270,23 @@ class DashboardProvider with ChangeNotifier {
       'user_token': '$token',
       'user_id': '$getUserID',
     };
+    LocationService.startBackgroundLocation(token, getUserID);
 
     Map<String, dynamic> body = {
       'punch_in_latitude': locationStatus['latitude'].toString(),
       'punch_in_longitude': locationStatus['longitude'].toString(),
     };
 
-    print("fkjdhgkdfkjg ${body} ${headers}");
-
     try {
       final response = await http.post(uri, headers: headers, body: body);
       final responseData = json.decode(response.body);
 
-      print("djhgfghjfgh  ${responseData['status']}  ${response.body}");
       final attendanceResponse =
           AttendanceStatusResponse.fromJson(responseData);
 
       if (responseData['status'] == true) {
-        bgLocationTask();
+        LocationService.startBackgroundLocation(token, getUserID);
+        // bgLocationTask();
 
         // updateAttendanceStatus(EmployeeAttendanceData(
         //     punchInTime: attendanceResponse.data!.attendanceData!.punchInTime!,
@@ -317,73 +308,72 @@ class DashboardProvider with ChangeNotifier {
         //     checkOutAttendance();
         //    });
 
-        print("lkfhjdgkfgk  ${responseData['message']}");
         var errorMessage = responseData['message'];
         return attendanceResponse;
       }
     } catch (e) {
-      debugPrint(locationStatus['latitude'].toString());
-      debugPrint(locationStatus['longitude'].toString());
-      debugPrint(await WifiInfo().wifiBSSID() ?? "");
       rethrow;
     }
   }
 
-  Future<void> bgLocationTask() async {
-    // BackgroundLocation.startLocationService();
-    //initBackgroundLocation();
+  // Future<void> bgLocationTask() async {
+  //   // BackgroundLocation.startLocationService();
+  //   //initBackgroundLocation();
 
-    final service = FlutterBackgroundService();
+  //   final service = FlutterBackgroundService();
 
-    var isRunning = await service.isRunning();
-    service.startService();
-    FlutterBackgroundService().invoke("setAsBackground");
-    // FlutterBackgroundService().invoke("setAsForeground");
+  //   var isRunning = await service.isRunning();
+  //   if (isRunning) {
+  //     service.invoke('stopService');
+  //   }
+  //   service.startService();
+  //   // FlutterBackgroundService().invoke("setAsBackground");
+  //   FlutterBackgroundService().invoke("setAsForeground");
 
-    // // print("kfjglkfghlkfghj  ${isRunning}");
-    // if (isRunning)
-    // {
-    //   service.invoke("stopService");
-    // } else {
+  //   // // print("kfjglkfghlkfghj  ${isRunning}");
+  //   // if (isRunning)
+  //   // {
+  //   //   service.invoke("stopService");
+  //   // } else {
 
-    // }
+  //   // }
 
-    // try {
-    //   final backgroundApiViewModel = DashboardProvider();
+  //   // try {
+  //   //   final backgroundApiViewModel = DashboardProvider();
 
-    //   Timer.periodic(Duration(minutes: 1), (Timer t) async {
-    //     print("Calling getCurrentPosition within Timer  ${DateTime.now()}");
+  //   //   Timer.periodic(Duration(minutes: 1), (Timer t) async {
+  //   //     print("Calling getCurrentPosition within Timer  ${DateTime.now()}");
 
-    //     backgroundApiViewModel.getCurrentPosition();
-    //   });
-    // } catch (err, stackTrace) {
-    //   print("This is the error: $err");
-    //   print("Stacktrace : ${stackTrace}");
-    //   throw Exception(err.toString());
-    // }
-  }
+  //   //     backgroundApiViewModel.getCurrentPosition();
+  //   //   });
+  //   // } catch (err, stackTrace) {
+  //   //   print("This is the error: $err");
+  //   //   print("Stacktrace : ${stackTrace}");
+  //   //   throw Exception(err.toString());
+  //   // }
+  // }
 
-  void stopLocationService() {
-    print("stop service");
-    BackgroundLocation.stopLocationService();
-    BackgroundLocation.stopLocationService();
-  }
+  // void stopLocationService() {
+  //   print("stop service");
+  //   BackgroundLocation.stopLocationService();
+  //   BackgroundLocation.stopLocationService();
+  // }
 
-  void initBackgroundLocation() {
-    print("djfgjghkj");
-    BackgroundLocation.startLocationService(distanceFilter: 1);
-    BackgroundLocation.isServiceRunning();
-    BackgroundLocation.getLocationUpdates((location) async {
-      getCurrentPosition();
-      await dbHelper.insertLocationData(location.latitude!, location.longitude!,
-          DateTime.now().millisecondsSinceEpoch);
-    });
-    BackgroundLocation().getCurrentLocation().then((location) async {
-      print('This is current Location ' + location.toMap().toString());
-      await dbHelper.insertLocationData(location.latitude!, location.longitude!,
-          DateTime.now().millisecondsSinceEpoch);
-    });
-  }
+  // void initBackgroundLocation() {
+  //   print("djfgjghkj");
+  //   BackgroundLocation.startLocationService(distanceFilter: 1);
+  //   BackgroundLocation.isServiceRunning();
+  //   BackgroundLocation.getLocationUpdates((location) async {
+  //     getCurrentPosition();
+  //     await dbHelper.insertLocationData(location.latitude!, location.longitude!,
+  //         DateTime.now().millisecondsSinceEpoch);
+  //   });
+  //   BackgroundLocation().getCurrentLocation().then((location) async {
+  //     print('This is current Location ' + location.toMap().toString());
+  //     await dbHelper.insertLocationData(location.latitude!, location.longitude!,
+  //         DateTime.now().millisecondsSinceEpoch);
+  //   });
+  // }
 
   Future<void> scheduleNewNotification(
       String date, String message, int hour, int minute) async {
@@ -417,7 +407,7 @@ class DashboardProvider with ChangeNotifier {
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response');
+
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -431,13 +421,8 @@ class DashboardProvider with ChangeNotifier {
         "user_longitude": long.toString()
       });
 
-      print("fgkjh  ${headers} ${uri}");
-      debugPrint('resp   ${response.body.toString()}');
       final responseData = json.encode(response.body);
-      print('response---->${responseData}');
-    } catch (e) {
-      print('exphfiuer$e');
-    }
+    } catch (e) {}
   }
 
   Future<void> getCurrentPosition() async {
@@ -447,38 +432,33 @@ class DashboardProvider with ChangeNotifier {
       if (result == true) {
         Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high);
-        print("latLongsddd ${position.longitude} ${position.latitude}");
+
         checklocation(position.longitude, position.latitude);
+
+        await dbHelper.insertLocationData(position.latitude!,
+            position.longitude!, DateTime.now().millisecondsSinceEpoch);
       } else {
         Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high);
-        print("latLongsddd ${position.longitude} ${position.latitude}");
+
         //rampr
         // await dbHelper.insertLocationData(position.latitude!,
         //     position.longitude!, DateTime.now().millisecondsSinceEpoch);
-
-        print(
-            "dsdsfdfgfhgfh ${InternetConnectionChecker().hasConnection}  ${position.longitude} ${position.latitude} 1");
       }
     } catch (e, stT) {
-      print("Error getting current position: $e");
-      print("StackTrace: $stT");
-      // Handle the error accordingly
       checklocation(0.0, 0.0);
     }
   }
 
   ///MARK: - CheckOut API Implementation
   Future<CheckOutModel> checkOutAttendance() async {
-    print("dkfjhgkljfghkfgk   ");
     var uri = Uri.parse(APIURL.CHECK_Out_URL);
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
     String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     String currentTime = DateFormat('HH:mm:ss').format(DateTime.now());
-    print("CurrentDate  is - : ${currentDate.toString()}");
-    print("CurrentTime  is - : ${currentTime.toString()}");
+
     var fcm = await FirebaseMessaging.instance.getToken();
 
     Map<String, String> headers = {
@@ -491,7 +471,7 @@ class DashboardProvider with ChangeNotifier {
       'punch_out_latitude': locationStatus['latitude'].toString(),
       'punch_out_longitude': locationStatus['longitude'].toString(),
     };
-    print("LogOut Request is :$body  ${headers}");
+
     try {
       final response = await http.post(uri, headers: headers, body: body);
       debugPrint(response.body.toString());
@@ -499,10 +479,16 @@ class DashboardProvider with ChangeNotifier {
 
       final attendanceResponse = CheckOutModel.fromJson(responseData);
 
-      print("klfgjhkjhfgkh  ${responseData}   ${attendanceResponse}");
-
       if (response.statusCode == 200) {
-        stopLocationService();
+        LocationService.stopService();
+        // final service = FlutterBackgroundService();
+
+        // var isRunning = await service.isRunning();
+        // if (isRunning) {
+        //   service.invoke('stopService');
+        // }
+
+        // stopLocationService();
 
         if (responseData['status'] == true) {
           updateAttendanceStatus(EmployeeAttendanceData(
@@ -528,7 +514,6 @@ class DashboardProvider with ChangeNotifier {
   final Color leftBarColor = HexColor("#FFFFFF");
   final double width = 15;
 
-  ///MARK: -BarChart Data
   BarChartGroupData makeGroupData(int x, double y1) {
     return BarChartGroupData(barsSpace: 4, x: x, barRods: [
       BarChartRodData(

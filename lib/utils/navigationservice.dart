@@ -31,7 +31,7 @@ class NavigationService {
         context: NavigationService.navigatorKey.currentState!.context,
          );
          } catch (e) {
-          print(e);
+         
         }
       }
   }

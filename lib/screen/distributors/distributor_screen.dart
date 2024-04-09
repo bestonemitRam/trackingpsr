@@ -84,7 +84,7 @@
 //       lat = position.latitude;
 //       long = position.longitude;
 //     });
-//     print("djfgjkd ${position}");
+
 //   }
 
 //   @override

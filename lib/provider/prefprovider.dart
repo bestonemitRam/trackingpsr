@@ -27,7 +27,7 @@ class PrefProvider with ChangeNotifier {
   }
 
   void getUser() async {
-    print("kjfdhgkfgkg");
+   
     Preferences preferences = Preferences();
     _userName = await preferences.getUsername();
     _fullname = await preferences.getFullName();

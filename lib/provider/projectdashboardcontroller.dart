@@ -37,7 +37,7 @@ class ProjectDashboardController extends GetxController {
         uri,
         headers: headers,
       );
-      debugPrint(response.body.toString());
+     
 
       final responseData = json.decode(response.body);
 
@@ -80,11 +80,11 @@ class ProjectDashboardController extends GetxController {
         return "Loaded";
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+       
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+     
       throw e;
     }
   }

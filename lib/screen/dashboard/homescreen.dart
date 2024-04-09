@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bmitserp/data/source/network/model/login/User.dart';
 import 'package:bmitserp/provider/dashboardprovider.dart';
@@ -11,8 +12,10 @@ import 'package:bmitserp/widget/homescreen/weeklyreportchart.dart';
 import 'package:bmitserp/widget/radialDecoration.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:bmitserp/widget/headerprofile.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -24,8 +27,20 @@ class HomeScreenState extends State<HomeScreen> {
   //late DashboardProvider dashboardResponse;
   void initState() {
     super.initState();
+
     // initializeService();
     //dashboardResponse = Provider.of<DashboardProvider>(context, listen: false);
+  }
+
+  void _startBackgroundLocationUpdates() {
+    Geolocator.requestPermission().then((locationPermission) {
+      if (locationPermission == LocationPermission.always) {
+        Geolocator.getPositionStream().listen((Position position) {
+       
+          // Handle position updates
+        });
+      }
+    });
   }
   //
   // Future<void> initializeService() async {
@@ -108,14 +123,14 @@ class HomeScreenState extends State<HomeScreen> {
       location.update('latitude', (value) => position.latitude);
       location.update('longitude', (value) => position.longitude);
     } catch (e) {
-      print(e);
+    
       showToast(e.toString());
     }
   }
 
   Future<String> loadDashboard() async {
     //var fcm = await FirebaseMessaging.instance.getToken();
-    // print(fcm);
+  
     try {
       final dashboardProvider =
           await Provider.of<DashboardProvider>(context, listen: false)
@@ -123,42 +138,95 @@ class HomeScreenState extends State<HomeScreen> {
 
       return 'loaded';
     } catch (e) {
-      print(e);
+   
       return 'loaded';
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: RadialDecoration(),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: RefreshIndicator(
-          triggerMode: RefreshIndicatorTriggerMode.onEdge,
-          color: Colors.white,
-          backgroundColor: Colors.blueGrey,
-          edgeOffset: 50,
-          onRefresh: () {
-            return loadDashboard();
-          },
-          child: SafeArea(
-              child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Container(
-              width: double.infinity,
+    return WillPopScope(
+        onWillPop: () => showExitPopup(context),
+        child: Container(
+          decoration: RadialDecoration(),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: RefreshIndicator(
+              triggerMode: RefreshIndicatorTriggerMode.onEdge,
+              color: Colors.white,
+              backgroundColor: Colors.blueGrey,
+              edgeOffset: 50,
+              onRefresh: () {
+                return loadDashboard();
+              },
+              child: SafeArea(
+                  child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Container(
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      HeaderProfile(),
+                      CheckAttendance(),
+                      OverviewDashboard(),
+                      // WeeklyReportChart()
+                    ],
+                  ),
+                ),
+              )),
+            ),
+          ),
+        ));
+  }
+
+  Future<bool> showExitPopup(context) async {
+   
+    return await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SizedBox(
+              height: 90,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HeaderProfile(),
-                  CheckAttendance(),
-                  OverviewDashboard(),
-                  // WeeklyReportChart()
+                  Text(
+                    "If you closed app then you check out form the device",
+                    style: TextStyle(fontSize: 16.sp),
+                  ),
+                  SizedBox(height: 2.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            exit(0);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.tealAccent),
+                          child: Text(
+                            "Yes",
+                            style: TextStyle(fontSize: 16.sp),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 4.w),
+                      Expanded(
+                          child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        child: Text("No", style: TextStyle(fontSize: 16.sp)),
+                      ))
+                    ],
+                  )
                 ],
               ),
             ),
-          )),
-        ),
-      ),
-    );
+          );
+        });
   }
 }

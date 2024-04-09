@@ -26,7 +26,7 @@ class DatabaseHelper {
       version: 1,
       onCreate: (db, version) async {
         await db.execute(
-            'CREATE TABLE IF NOT EXISTS location_data1 (id INTEGER PRIMARY KEY, latitude REAL, longitude REAL, timestamp INTEGER)');
+            'CREATE TABLE IF NOT EXISTS location_data (id INTEGER PRIMARY KEY, latitude REAL, longitude REAL, timestamp INTEGER)');
       },
     );
   }
@@ -41,6 +41,6 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> fetchLocationData() async {
     final db = await database;
-    return await db.query('location_data1');
+    return await db.query('location_data');
   }
 }

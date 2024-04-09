@@ -322,7 +322,7 @@ class EditRetailerState extends State<EditRetailer> {
                                           .getShopList();
                                       Get.back();
                                     }
-                                    // print("ljkfgkjfkgh");
+                                   
                                     // if (_form.currentState!.validate())
                                     //  {
                                     //   if (controller.imageFile == null) {

@@ -56,7 +56,7 @@ class ProfileProvider with ChangeNotifier {
       final responseData = json.decode(response.body);
       EasyLoading.dismiss(animation: true);
       if (response.statusCode == 200) {
-        print(responseData.toString());
+       
 
         final responseJson = Profileresponse.fromJson(responseData);
         parseUser(responseJson.data!.profileData!);
@@ -178,7 +178,7 @@ class ProfileProvider with ChangeNotifier {
         //   final streamedResponse = await request.send();
         //   final response = await http.Response.fromStream(streamedResponse);
         //   final responseJson = Profileresponse.fromJson(jsonDecode(response.body));
-        //   print(response.body);
+      
         //   var out = jsonDecode(response.body);
         //   if (out['status'] == "success")
         //   {
@@ -186,7 +186,7 @@ class ProfileProvider with ChangeNotifier {
         //     // Navigator.pop(context);
         //   }
         // } catch (e) {
-        //   print(e);
+     
         // }
 
         return Future.error('error');
@@ -207,7 +207,7 @@ class ProfileProvider with ChangeNotifier {
 
         final responseData = json.decode(response.body);
         if (response.statusCode == 200) {
-          debugPrint(responseData.toString());
+         
           final responseJson = Profileresponse.fromJson(responseData);
 
           //  parseUser(responseJson.data);
@@ -230,7 +230,7 @@ class ProfileProvider with ChangeNotifier {
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
 
-    print("kjdfhgjh ${uri}");
+   
 
     dynamic response;
     try {
@@ -256,7 +256,7 @@ class ProfileProvider with ChangeNotifier {
         try {
           final streamedResponse = await request.send();
           final response = await http.Response.fromStream(streamedResponse);
-          print("kdjfhggf ${response.statusCode}");
+        
 
           var out = jsonDecode(response.body);
           final responseData = json.decode(response.body);
@@ -283,7 +283,7 @@ class ProfileProvider with ChangeNotifier {
                 fontSize: 16.0);
           }
         } catch (e) {
-          print(e);
+         
         }
 
         return Future.error('error');
@@ -305,7 +305,7 @@ class ProfileProvider with ChangeNotifier {
         final responseData = json.decode(response.body);
         var out = jsonDecode(response.body);
 
-        print("dkfghkfghkj${responseData}  ${response.statusCode}");
+       
         if (response.statusCode == 201) {
           EasyLoading.dismiss(animation: true);
           Fluttertoast.showToast(

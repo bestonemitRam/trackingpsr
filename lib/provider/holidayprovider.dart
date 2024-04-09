@@ -53,7 +53,7 @@ class HolidayProvider with ChangeNotifier {
 
       final responseData = json.decode(response.body);
       if (response.statusCode == 200) {
-        debugPrint(responseData.toString());
+        
 
         final responseJson = HolidayResponse.fromJson(responseData);
 
@@ -75,7 +75,7 @@ class HolidayProvider with ChangeNotifier {
     _holidayList.clear();
     for (var item in data!.upcomingHoliday ?? []) {
       DateTime tempDate = DateFormat("yyyy-MM-dd").parse(item.holidayDate);
-      print(DateFormat('MMMM').format(tempDate));
+     
       _holidayList.add(Holiday(
           id: item.id,
           day: tempDate.day.toString(),
@@ -91,7 +91,7 @@ class HolidayProvider with ChangeNotifier {
     _holidayListdata.clear();
     for (var item in data!.pastHoliday ?? []) {
       DateTime tempDate = DateFormat("yyyy-MM-dd").parse(item.holidayDate);
-      print(DateFormat('MMMM').format(tempDate));
+    
       _holidayListdata.add(Holiday(
           id: item.id,
           day: tempDate.day.toString(),

@@ -13,7 +13,7 @@ class Preferences with ChangeNotifier {
   Future<bool> saveUser(Result data) async {
     // Obtain shared preferences.
     User user = data.user!;
-    print("fgfgkjhfjgkjhfjghkf  ${user.fullName}");
+  
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(Apphelper.USER_TOKEN, data.tokens);
     await prefs.setInt(Apphelper.USER_ID, user.id!);
@@ -29,7 +29,7 @@ class Preferences with ChangeNotifier {
     Apphelper.USER_CONTACT = user.contact!;
     Apphelper.USER_AVATAR = user.avatar;
     Apphelper.USER_NAME = user.fullName!;
-    print("kjfdgjk  ${user.fullName!}");
+  
     notifyListeners();
     return true;
   }
@@ -56,7 +56,7 @@ class Preferences with ChangeNotifier {
     Apphelper.USER_EMAIL = data.mail!;
     Apphelper.CHECK_STATUS = active_status;
     // MyApp.userName=
-    print("kjfdgjk  ${data.fullName!}");
+  
 
     notifyListeners();
     return true;
@@ -118,7 +118,7 @@ class Preferences with ChangeNotifier {
   Future<User> getUser() async {
     final prefs = await SharedPreferences.getInstance();
 
-    print("lknvbvbjnn  ${Apphelper.USER_NAME}");
+   
     return User(
       id: prefs.getInt(Apphelper.USER_ID) ?? 0,
       employeeCode: prefs.getString(Apphelper.USER_EMP_CODE) ?? "",
@@ -132,7 +132,7 @@ class Preferences with ChangeNotifier {
   Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
 
-    print("kfjgkjfgkh  ${prefs.getString(Apphelper.USER_TOKEN)}");
+   
     return prefs.getString(Apphelper.USER_TOKEN) ?? '';
   }
 
@@ -172,7 +172,7 @@ class Preferences with ChangeNotifier {
   /// GET_FULL_NAME
   Future<String> getFullName() async {
     final prefs = await SharedPreferences.getInstance();
-    print("kjfhkjgkjfgh  ${prefs.getString(Apphelper.USER_NAME) ?? ""}");
+  
     Apphelper.USER_NAME = prefs.getString(Apphelper.USER_NAME) ?? "";
     return prefs.getString(Apphelper.USER_NAME) ?? "";
   }

@@ -12,7 +12,7 @@ class AttendanceReportRepository {
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
-    print('response');
+  
     Map<String, String> headers = {
       'Accept': 'application/json; charset=UTF-8',
       'user_token': '$token',
@@ -26,10 +26,9 @@ class AttendanceReportRepository {
       final responseData = json.decode(response.body);
 
       final responseJson = AttendanceReportResponse.fromJson(responseData);
-      print("kdjfhgkjdfgkj  ${responseData} ${response.statusCode}");
-
+     
       if (response.statusCode == 200) {
-        print(responseData.toString());
+       
 
         return responseJson;
       } else {

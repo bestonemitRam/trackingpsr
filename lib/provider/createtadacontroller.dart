@@ -45,9 +45,9 @@ class CreateTadaController extends GetxController {
 
     final response = await repository.createTada(titleController.text,
         descriptionController.text, expensesController.text, fileList);
-    debugPrint(response.toString());
+   
 
-    print('fghkjfghkj${response.statusCode}');
+  
     EasyLoading.dismiss(animation: true);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
@@ -56,7 +56,7 @@ class CreateTadaController extends GetxController {
       return "Loaded";
     } else {
       var errorMessage = response.message;
-      print(errorMessage);
+     
       throw errorMessage;
     }
   }

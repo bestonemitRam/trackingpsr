@@ -42,13 +42,13 @@ class EditTadaController extends GetxController {
         fileList.add(image);
       }
     } on Exception catch (e) {
-      print("cxjkbjvkbsdjv" + e.toString());
+    
     }
   }
 
   void checkForm(String id) {
     if (key.currentState!.validate()) {
-      print("kdfhgjdfhgk");
+   
       editTada(id);
     }
   }
@@ -73,7 +73,7 @@ class EditTadaController extends GetxController {
         uri,
         headers: headers,
       );
-      debugPrint(response.body.toString());
+     
 
       final responseData = json.decode(response.body);
       EasyLoading.dismiss(animation: true);
@@ -99,7 +99,7 @@ class EditTadaController extends GetxController {
         //       .add(Attachment(attachment.id, attachment.url, "file"));
         // }
 
-        print("dfgkjhkjhdf ${parse(data!.title!).body!.text}");
+     
 
         titleController.text = parse(data!.title!).body!.text;
         descriptionController.text = parse(data.description).body!.text;
@@ -110,11 +110,11 @@ class EditTadaController extends GetxController {
         return "Loaded";
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+      
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+     
       showToast(e.toString());
       throw e;
     }
@@ -124,7 +124,7 @@ class EditTadaController extends GetxController {
     try {
       var uri = Uri.parse(APIURL.TADA_UPDATE_URL + "$id");
 
-      print("lfdgjhkfghjk ${uri}");
+    
 
       Preferences preferences = Preferences();
       String token = await preferences.getToken();
@@ -164,18 +164,18 @@ class EditTadaController extends GetxController {
         final response = await http.Response.fromStream(responseStream);
 
         EasyLoading.dismiss(animation: true);
-        debugPrint(response.toString());
+        
         final responseData = json.decode(response.body);
 
         if (response.statusCode == 200) {
-          print("fhjgjfgjk  ${response.statusCode}");
+       
 
           showToast("Tada has been updated");
           Get.back();
           return "Loaded";
         } else {
           var errorMessage = responseData['message'];
-          print(errorMessage);
+        
           throw errorMessage;
         }
       } else {
@@ -189,9 +189,9 @@ class EditTadaController extends GetxController {
         });
 
         EasyLoading.dismiss(animation: true);
-        debugPrint(response.toString());
+       
         final responseData = json.decode(response.body);
-        print("fhjgddjfgjk  ${response.statusCode}");
+       
 
         if (response.statusCode == 200) {
           showToast("Tada has been updated");
@@ -199,7 +199,7 @@ class EditTadaController extends GetxController {
           return "Loaded";
         } else {
           var errorMessage = responseData['message'];
-          print(errorMessage);
+       
           throw errorMessage;
         }
       }
@@ -232,7 +232,7 @@ class EditTadaController extends GetxController {
       );
 
       EasyLoading.dismiss(animation: true);
-      debugPrint(response.body.toString());
+     
 
       final responseData = json.decode(response.body);
 
@@ -243,11 +243,11 @@ class EditTadaController extends GetxController {
       } else {
         EasyLoading.dismiss(animation: true);
         var errorMessage = responseData['message'];
-        print(errorMessage);
+     
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+     
       throw e;
     }
   }

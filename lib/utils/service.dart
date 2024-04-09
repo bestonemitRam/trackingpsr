@@ -23,9 +23,9 @@ class ServiceWithHeader {
       'user_id': '$getUserID',
     });
 
-    print(response.body);
+
     var status = jsonDecode(response.body);
-    print('heee' + status['status'].toString());
+    
     if (status['status'].toString().toUpperCase() == 'SUCCESS' ||
         status['status'].toString().toUpperCase() == 'TRUE') {
       String data = response.body;
@@ -39,7 +39,7 @@ class ServiceWithHeader {
   Future datawithoutheader() async {
     final response = await http.get(Uri.parse(loginURL));
     var status = jsonDecode(response.body);
-    print('heee' + status['status'].toString());
+   
     if (status['status'].toString().toUpperCase() == 'SUCCESS' ||
         status['status'].toString().toUpperCase() == 'TRUE') {
       String data = response.body;

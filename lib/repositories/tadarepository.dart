@@ -25,26 +25,26 @@ class TadaRepository {
       'user_token': '$token',
       'user_id': '$getUserID',
     };
-    print("kdfhghdfjhgjdfg");
+  
 
     try {
       final response =
           await Connect().getResponse(APIURL.TADA_LIST_URL, headers);
-      debugPrint(response.body.toString());
+     
 
       String data = response.body;
       final responseData = jsonDecode(data);
-      print("dkfjhgjkdfgh ${responseData}");
+      
 
       if (response.statusCode == 200) {
         final tadaResponse = TadaListResponse.fromJson(jsonDecode(data));
 
-        print("dkfjhgjkdfgh ${tadaResponse.data}");
+      
 
         return tadaResponse;
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+       
         throw errorMessage;
       }
     } catch (e) {
@@ -66,9 +66,9 @@ class TadaRepository {
     try {
       final response = await Connect()
           .getResponse(Constant.TADA_DETAIL_URL + "/${tadaId}", headers);
-      debugPrint(response.body.toString());
+     
 
-      print("kdfgkfgdjk  ${response.body.toString()}");
+     
 
       String data = response.body;
       final responseData = jsonDecode(data);
@@ -78,11 +78,11 @@ class TadaRepository {
         return tadaResponse;
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+     
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+    
       throw e;
     }
   }
@@ -101,7 +101,7 @@ class TadaRepository {
       'user_id': '$getUserID',
     };
 
-    print('dlfkgkjgh ${uri} ${headers}');
+
 
     var requests = http.MultipartRequest('POST', uri);
     requests.headers.addAll(headers);
@@ -112,7 +112,7 @@ class TadaRepository {
       "total_expense": expenses,
     });
 
-    print("kdjghkjdhgjk ${uri} ${expenses}");
+   
 
     for (var filed in fileList) {
       final file = File(filed.path!);
@@ -128,12 +128,10 @@ class TadaRepository {
     final response = await http.Response.fromStream(
       responseStream,
     );
-    debugPrint(response.toString());
+   
     final responseData = json.decode(response.body);
     String data = response.body;
-    print('dkjfhgkjgf ${responseData} ${response.statusCode}');
-    print('dkjfhgkjgf ${responseData} ${response.statusCode}');
-
+    
     if (response.statusCode == 200 || response.statusCode == 201) {
       // EasyLoading.dismiss(animation: true);
       // showToast("Tada has been submitted");
@@ -142,7 +140,7 @@ class TadaRepository {
       return tadaResponse;
     } else {
       var errorMessage = responseData['message'];
-      print(errorMessage);
+   
       throw errorMessage;
     }
   }

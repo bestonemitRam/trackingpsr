@@ -158,7 +158,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
         imagefiles = image;
         setState(() {});
       } else {
-        print("Error");
+      
         // DialogHelper.showFlutterToast(strMsg: Languages.of(context)!.imageNotSelected);
       }
     } catch (e) {

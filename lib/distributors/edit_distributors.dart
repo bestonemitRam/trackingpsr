@@ -66,7 +66,7 @@ class CreateShopScreenState extends State<EditDistributor> {
     controller.fileList.value = [];
 
     fileList = widget.distributorList.appointmentForm.split(',');
-    print("fileList ${widget.distributorList.appointmentForm}  ${fileList[0]}");
+   
 
     super.initState();
   }
@@ -968,7 +968,7 @@ class CreateShopScreenState extends State<EditDistributor> {
 
                                     if (status)
                                      {
-                                      print("check data ${status}");
+                                     
                                       Provider.of<LeaveProvider>(context,
                                               listen: false)
                                           .getDistributorList();

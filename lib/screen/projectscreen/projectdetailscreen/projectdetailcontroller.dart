@@ -41,7 +41,7 @@ class ProjectDetailController extends GetxController {
       );
 
       EasyLoading.dismiss(animation: true);
-      debugPrint(response.body.toString());
+     
 
       final responseData = json.decode(response.body);
 
@@ -87,7 +87,7 @@ class ProjectDetailController extends GetxController {
             attachments);
 
         final List<Task> taskList = [];
-        print(projectResponse.data.assigned_task_detail.length);
+       
         for (var task in projectResponse.data.assigned_task_detail) {
           taskList.add(Task(
               task.task_id,
@@ -103,11 +103,11 @@ class ProjectDetailController extends GetxController {
         return "Loaded";
       } else {
         var errorMessage = responseData['message'];
-        print(errorMessage);
+       
         throw errorMessage;
       }
     } catch (e) {
-      print(e);
+      
       throw e;
     }
   }

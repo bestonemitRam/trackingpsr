@@ -300,7 +300,7 @@ class _EditTadaScreenState extends State<EditTadaScreen> {
                       itemCount: model.fileList.length,
                       itemBuilder: (context, index) {
                         final file = model.fileList[index];
-                        print("check upload   ${file.name}");
+                      
                         return ListTile(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(

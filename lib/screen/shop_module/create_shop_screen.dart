@@ -276,7 +276,7 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                                             await controller.RegisterRetailer();
                                         if (status)
                                          {
-                                          print("kdlfhg $status");
+                                         
                                           Provider.of<LeaveProvider>(context, listen: false)
                                               .getShopList();
                                           Get.back();

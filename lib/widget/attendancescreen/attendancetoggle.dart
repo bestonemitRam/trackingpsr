@@ -47,7 +47,7 @@ class AttendanceToggleState extends State<AttendanceToggle> {
                       .toList(),
                   value: provider.month[provider.selectedMonth],
                   onChanged: (value) {
-                    print(value);
+                   
                     setState(() {
                       provider.selectedMonth = (value as Month).index;
                       provider.getAttendanceReport();

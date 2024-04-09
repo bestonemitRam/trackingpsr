@@ -63,9 +63,7 @@ class _MapScreenState extends State<MapScreen> {
     final distributor = leaveData.distributor;
 
     for (int i = 0; i < distributor.length; i++) {
-      print(
-          'jkdhfhjkghf  ${double.parse(distributor[i].distributorLatitude)}    ${double.parse(distributor[i].distributorLongitude)}');
-      setState(() {
+       setState(() {
         markers.add(
           Marker(
             icon: widget.customIcon,

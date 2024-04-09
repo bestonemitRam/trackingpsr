@@ -18,7 +18,7 @@ class MyTaskProvider extends ChangeNotifier {
     ServiceWithHeader service = ServiceWithHeader(url);
     final response = await service.data();
 
-    print('dfhgkgfkjfgjk ${response}');
+  
 
     mytaskModel = MyTask.fromJson(response);
     allData = [];

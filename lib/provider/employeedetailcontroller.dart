@@ -46,7 +46,7 @@ class EmployeeDetailController extends GetxController {
       EasyLoading.dismiss(animation: true);
       final responseData = json.decode(response.body);
       if (response.statusCode == 200) {
-        print(responseData.toString());
+       
 
         final responseJson = employeedetailresponse.fromJson(responseData);
         parseUser(responseJson.data);

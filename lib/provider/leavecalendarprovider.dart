@@ -41,7 +41,7 @@ class LeaveCalendarProvider with ChangeNotifier {
 
       final responseData = json.decode(response.body);
       if (response.statusCode == 200) {
-        debugPrint(responseData.toString());
+       
 
         final responseJson =
             Employeeleavecalendarresponse.fromJson(responseData);
@@ -87,7 +87,7 @@ class LeaveCalendarProvider with ChangeNotifier {
 
       final responseData = json.decode(response.body);
       if (response.statusCode == 200) {
-        debugPrint(responseData.toString());
+        
 
         final responseJson = EmployeeLeavesByDayResponse.fromJson(responseData);
 

@@ -164,8 +164,7 @@ class _MyWidgetState extends State<OrderGenerate> {
                                                           index],
                                                   cursorHeight: 18,
                                                   onChanged: (newValue) {
-                                                    print(
-                                                        item.availableQuantity);
+                                                  
                                                     if (int.tryParse(
                                                                 newValue) !=
                                                             null &&
