@@ -21,6 +21,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -255,8 +256,13 @@ class DashboardProvider with ChangeNotifier {
   }
 
   ///MARK: - CHECK-IN API IMPLEMENTATION
-  Future<AttendanceStatusResponse> checkInAttendance() async 
-  {
+  Future<AttendanceStatusResponse> checkInAttendance() async {
+    final service = FlutterBackgroundService();
+    var isRunning = await service.isRunning();
+    print("dhjfgjdfgjjdfgh  ${isRunning}");
+
+    service.startService();
+
     var uri = Uri.parse(APIURL.CHECK_IN_URL);
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
@@ -270,7 +276,7 @@ class DashboardProvider with ChangeNotifier {
       'user_token': '$token',
       'user_id': '$getUserID',
     };
-    LocationService.startBackgroundLocation(token, getUserID);
+    //  LocationService.startBackgroundLocation(token, getUserID);
 
     Map<String, dynamic> body = {
       'punch_in_latitude': locationStatus['latitude'].toString(),
@@ -285,8 +291,16 @@ class DashboardProvider with ChangeNotifier {
           AttendanceStatusResponse.fromJson(responseData);
 
       if (responseData['status'] == true) {
-        LocationService.startBackgroundLocation(token, getUserID);
+        // LocationService.startBackgroundLocation(token, getUserID);
         // bgLocationTask();
+
+        final service = FlutterBackgroundService();
+
+        var isRunning = await service.isRunning();
+        if (isRunning) {
+          service.invoke('stopService');
+        }
+        service.startService();
 
         // updateAttendanceStatus(EmployeeAttendanceData(
         //     punchInTime: attendanceResponse.data!.attendanceData!.punchInTime!,
@@ -480,13 +494,13 @@ class DashboardProvider with ChangeNotifier {
       final attendanceResponse = CheckOutModel.fromJson(responseData);
 
       if (response.statusCode == 200) {
-        LocationService.stopService();
-        // final service = FlutterBackgroundService();
+        // LocationService.stopService();
+        final service = FlutterBackgroundService();
 
-        // var isRunning = await service.isRunning();
-        // if (isRunning) {
-        //   service.invoke('stopService');
-        // }
+        var isRunning = await service.isRunning();
+        if (isRunning) {
+          service.invoke('stopService');
+        }
 
         // stopLocationService();
 
