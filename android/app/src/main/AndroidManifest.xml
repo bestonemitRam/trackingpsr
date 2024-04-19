@@ -22,6 +22,17 @@
    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+      
+   
+ 
+
+  
+
+    <!--
+      Permission to use here depends on the value you picked for foregroundServiceType - see the Android documentation.
+      Eg, if you picked 'location', use 'android.permission.FOREGROUND_SERVICE_LOCATION'
+    -->
+  
 
 
 <!--    <queries>-->
@@ -78,6 +89,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            <service
+            android:name="id.flutter.flutter_background_service.BackgroundService"
+            android:foregroundServiceType="location"
+            />
 
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBvbt_XselhEKjHeAihYwcWz0cGW8eVokw"/>

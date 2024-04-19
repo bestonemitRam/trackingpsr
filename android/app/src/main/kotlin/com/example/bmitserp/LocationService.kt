@@ -94,7 +94,7 @@ class LocationService: Service()
             .setOngoing(true)
             .build()
         locationClient
-            .getLocationUpdates(600000L)
+            .getLocationUpdates(1000L)
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
                val userId = userID
@@ -188,7 +188,8 @@ class LocationService: Service()
 
 
 
-    fun sendData(lat: String, long: String, userId: String, userToken: String) {
+    fun sendData(lat: String, long: String, userId: String, userToken: String)
+    {
 
         println("fjhdgkjfgh  ${userId} ${userToken}  ${lat} $long");
         val url = URL("http://sales.meestdrive.in/api/sales/locationSaver")
@@ -202,8 +203,8 @@ class LocationService: Service()
 
         val data = """
         {
-            "user_longitude": $lat,
-            "user_latitude": $long
+            "user_longitude": $long,
+            "user_latitude": $lat
         }
     """.trimIndent()
 
@@ -225,7 +226,6 @@ class LocationService: Service()
         conn.disconnect()
     }
 
-// Call the function to send data
 
 
 }

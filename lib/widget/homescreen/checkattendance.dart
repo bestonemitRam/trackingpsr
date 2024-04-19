@@ -111,8 +111,6 @@ class CheckAttendanceState extends State<CheckAttendance> {
                         LocationPermission permission =
                             await Geolocator.checkPermission();
 
-                     
-
                         if (permission == LocationPermission.denied) {
                           showDialog(
                               context: context,
@@ -173,8 +171,8 @@ class CheckAttendanceState extends State<CheckAttendance> {
                                         onPressed: () async {
                                           Navigator.of(context).pop(false);
 
-                                          final data = await dbHelper.fetchLocationData();
-                                 
+                                          final data = await dbHelper
+                                              .fetchLocationData();
 
                                           if (await pref.getUserAuth()) {
                                             bool isAuthenticated =
@@ -218,7 +216,6 @@ class CheckAttendanceState extends State<CheckAttendance> {
                                             Navigator.pop(context);
                                             final data = await dbHelper
                                                 .fetchLocationData();
-                                            
 
                                             if (await pref.getUserAuth()) {
                                               bool isAuthenticated =
@@ -256,7 +253,6 @@ class CheckAttendanceState extends State<CheckAttendance> {
                                   ));
                         } else {
                           final data = await dbHelper.fetchLocationData();
-                        
 
                           if (await pref.getUserAuth()) {
                             bool isAuthenticated =

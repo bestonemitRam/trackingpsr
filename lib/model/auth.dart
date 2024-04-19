@@ -13,28 +13,25 @@ import 'package:bmitserp/utils/constant.dart';
 class Auth with ChangeNotifier {
   Future<Loginresponse> login(String username, String password) async {
     var uri = Uri.parse(APIURL.LOGIN_API);
-    
+
     Map<String, String> headers = {"Accept": "application/json; charset=UTF-8"};
-  
+
     try {
       var fcm = await FirebaseMessaging.instance.getToken();
-    Map<String, dynamic> Requestbody = 
-    {
+      print("fcm token  ${fcm}");
+      Map<String, dynamic> Requestbody =
+       {
         'employee_code': username,
         'password': password,
         'fcm_token': fcm,
         'device_type': Platform.isIOS ? 'ios' : 'android',
       };
 
-    
       final response =
           await http.post(uri, headers: headers, body: Requestbody);
-   
+
       final responseData = json.decode(response.body);
       if (response.statusCode == 200) {
-    
-
-      
         final responseJson = Loginresponse.fromJson(responseData);
         Preferences preferences = Preferences();
 
@@ -43,7 +40,7 @@ class Auth with ChangeNotifier {
         return responseJson;
       } else {
         var errorMessage = responseData['message'];
-        
+
         throw errorMessage;
       }
     } catch (error) {
@@ -53,7 +50,7 @@ class Auth with ChangeNotifier {
 
   Future<CheckAuthModel> getMe() async {
     var uri = Uri.parse(APIURL.GET_ME);
-     Preferences preferences = Preferences();
+    Preferences preferences = Preferences();
     String token = await preferences.getToken();
     int getUserID = await preferences.getUserId();
 
@@ -67,7 +64,7 @@ class Auth with ChangeNotifier {
       final responseData = json.decode(response.body);
       final responseJson = CheckAuthModel.fromJson(responseData);
       if (response.statusCode == 200) {
-      Preferences preferences = Preferences();
+        Preferences preferences = Preferences();
         await preferences.checkAuth(responseJson.result!.userData!,
             responseJson.result!.active_status.toString());
         return responseJson;

@@ -21,6 +21,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -255,8 +256,7 @@ class DashboardProvider with ChangeNotifier {
   }
 
   ///MARK: - CHECK-IN API IMPLEMENTATION
-  Future<AttendanceStatusResponse> checkInAttendance() async 
-  {
+  Future<AttendanceStatusResponse> checkInAttendance() async {
     var uri = Uri.parse(APIURL.CHECK_IN_URL);
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
@@ -285,29 +285,11 @@ class DashboardProvider with ChangeNotifier {
           AttendanceStatusResponse.fromJson(responseData);
 
       if (responseData['status'] == true) {
-        LocationService.startBackgroundLocation(token, getUserID);
+        // LocationService.startBackgroundLocation(token, getUserID);
         // bgLocationTask();
-
-        // updateAttendanceStatus(EmployeeAttendanceData(
-        //     punchInTime: attendanceResponse.data!.attendanceData!.punchInTime!,
-        //     punchOutTime:
-        //         attendanceResponse.data!.attendanceData!.punchOutTime ??
-        //             "0000-00-00 00:00:00",
-        //     totalWorkingHours: "00:00:00"));
-
-        // updateAttendanceStatus(EmployeeAttendanceData(
-        //     punchInTime: attendanceResponse.data!.attendanceData!.punchInTime!,
-        //     punchOutTime: "0000-00-00 00:00:00",
-        //     totalWorkingHours: "00:00:00"));
 
         return attendanceResponse;
       } else {
-        //  _timer =  Timer.periodic(Duration(seconds:10), (Timer timer)
-        //  {
-        //    getCurrentPosition();
-        //     checkOutAttendance();
-        //    });
-
         var errorMessage = responseData['message'];
         return attendanceResponse;
       }
@@ -452,6 +434,7 @@ class DashboardProvider with ChangeNotifier {
 
   ///MARK: - CheckOut API Implementation
   Future<CheckOutModel> checkOutAttendance() async {
+    LocationService.stopService();
     var uri = Uri.parse(APIURL.CHECK_Out_URL);
     Preferences preferences = Preferences();
     String token = await preferences.getToken();
@@ -480,15 +463,7 @@ class DashboardProvider with ChangeNotifier {
       final attendanceResponse = CheckOutModel.fromJson(responseData);
 
       if (response.statusCode == 200) {
-        LocationService.stopService();
-        // final service = FlutterBackgroundService();
-
-        // var isRunning = await service.isRunning();
-        // if (isRunning) {
-        //   service.invoke('stopService');
-        // }
-
-        // stopLocationService();
+    
 
         if (responseData['status'] == true) {
           updateAttendanceStatus(EmployeeAttendanceData(

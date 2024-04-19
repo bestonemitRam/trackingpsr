@@ -51,6 +51,10 @@ dependencies:
   flutter_file_downloader:
   gallery_image_viewer: 
   readmore: ^2.1.0
+  flutter_background_service: ^5.0.5
+
+ 
+  flutter_local_notifications:
  
 
  
@@ -79,7 +83,7 @@ dependencies:
 
   #background_location: ^0.13.0
   expansion_tile_card: ^3.0.0
-  #flutter_background_service: ^0.2.4
+
   responsive_sizer: ^3.3.0+1 
   fluttertoast: ^8.2.1
   flutter_mentions: ^2.0.1
@@ -97,8 +101,8 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   #workmanager: ^0.5.2
   package_info_plus:
-  #flutter_background_service: ^5.0.5
-  flutter_local_notifications:
+
+
  
   
 
